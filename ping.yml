@@ -1,0 +1,4 @@
+- name: Ping nodes
+  tasks:
+    - name: Ping
+      ping:
