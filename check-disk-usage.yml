@@ -1,0 +1,11 @@
+- name: Check disk usage
+  hosts: all
+  tasks:
+    - name: Check disk usage
+      shell: df -h | awk 'NR > 1 && $5 > 75 {print}'
+      register: disk_usage
+
+    - name: Fail if any disk is more than 75% full
+      fail:
+        msg: "{{ disk_usage.stdout }}"
+      when: disk_usage.stdout != ""
