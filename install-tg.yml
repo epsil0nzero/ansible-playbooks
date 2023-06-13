@@ -15,6 +15,7 @@
       unarchive:
         src: "{{ FOLDER_PATH }}/file.zip"
         dest: "{{ FOLDER_PATH }}"
+        remote_src: yes
         
     - name: Download config file
       get_url:
