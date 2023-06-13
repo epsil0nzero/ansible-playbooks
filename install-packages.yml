@@ -4,9 +4,9 @@
     - name: Install packages
       apt:
         name:
+          - net-tools
           - nginx
-          - tmux
-          - unzip          
+          - tmux        
         state: present
         update_cache: yes
 
