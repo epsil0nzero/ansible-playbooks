@@ -9,7 +9,13 @@
     
     - name: Print DOMAIN variable
       debug:
-        var: DOMAIN
+        var: DOMAIN        
+    
+    - name: Allow incoming traffic on port 80
+      ufw:
+        rule: allow
+        port: 80
+        proto: tcp
 
     - name: Generate certificate
       command: certbot certonly --standalone -d {{ DOMAIN }} --agree-tos --register-unsafely-without-email --non-interactive
