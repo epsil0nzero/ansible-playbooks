@@ -19,3 +19,9 @@
 
     - name: Generate certificate
       command: certbot certonly --standalone -d {{ DOMAIN }} --agree-tos --register-unsafely-without-email --non-interactive
+      
+    - name: Block incoming traffic on port 80
+      ufw:
+        rule: deny
+        port: 80
+        proto: tcp
