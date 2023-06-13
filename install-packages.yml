@@ -6,7 +6,8 @@
         name:
           - net-tools
           - nginx
-          - tmux        
+          - tmux   
+          - unzip
         state: present
         update_cache: yes
 
