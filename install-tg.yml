@@ -6,9 +6,6 @@
         path: "{{ FOLDER_PATH }}"
         state: directory
 
-    - name: Change into directory
-      command: chdir="{{ FOLDER_PATH }}"
-
     - name: Download zip file
       get_url:
         url: "{{ ZIP_URL }}"
@@ -18,3 +15,29 @@
       unarchive:
         src: "{{ FOLDER_PATH }}/file.zip"
         dest: "{{ FOLDER_PATH }}"
+        
+    - name: Download config file
+      get_url:
+        url: https://raw.githubusercontent.com/epsil0nzero/ansible-playbooks/main/templates/tg/server.json
+        dest: "{{ FOLDER_PATH }}/server.json"
+        
+    - name: Replace domain in config file
+      replace:
+        path: "{{ FOLDER_PATH }}/server.json"
+        regexp: 'DOMAIN'
+        replace: "{{ DOMAIN }}"
+        
+    - name: Replace password in config file
+      replace:
+        path: "{{ FOLDER_PATH }}/server.json"
+        regexp: 'PASSWORD'
+        replace: "{{ PASSWORD }}"
+        
+    - name: Allow incoming traffic on port 443
+      ufw:
+        rule: allow
+        port: 443
+        proto: tcp
+        
+    - name: Run server
+      command: tmux new-session -d "cd {{ FOLDER_PATH }} && ./trojan-go -config=server.json"
