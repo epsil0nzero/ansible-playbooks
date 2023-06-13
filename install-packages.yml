@@ -1,0 +1,17 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install packages
+      apt:
+        name:
+          - nginx
+          - tmux
+          - unzip          
+        state: present
+        update_cache: yes
+
+    - name: Start and enable nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
