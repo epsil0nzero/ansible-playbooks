@@ -5,7 +5,11 @@
       apt:
         name: certbot
         state: present
-        update_cache: yes
+        update_cache: yes        
+    
+    - name: Print DOMAIN variable
+      debug:
+        var: DOMAIN
 
     - name: Generate certificate
       command: certbot certonly --standalone -d {{ lookup('env', 'DOMAIN') }} --agree-tos --register-unsafely-without-email --non-interactive
