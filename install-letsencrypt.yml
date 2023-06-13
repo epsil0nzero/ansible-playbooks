@@ -1,0 +1,11 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install LetsEncrypt
+      apt:
+        name: certbot
+        state: present
+        update_cache: yes
+
+    - name: Generate certificate
+      command: certbot certonly --standalone -d {{ lookup('env', 'DOMAIN') }} --agree-tos --register-unsafely-without-email --non-interactive
