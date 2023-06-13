@@ -12,4 +12,4 @@
         var: DOMAIN
 
     - name: Generate certificate
-      command: certbot certonly --standalone -d {{ lookup('env', 'DOMAIN') }} --agree-tos --register-unsafely-without-email --non-interactive
+      command: certbot certonly --standalone -d {{ DOMAIN }} --agree-tos --register-unsafely-without-email --non-interactive
