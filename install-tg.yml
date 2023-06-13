@@ -1,0 +1,20 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: Create directory
+      file:
+        path: "{{ FOLDER_PATH }}"
+        state: directory
+
+    - name: Change into directory
+      command: chdir="{{ FOLDER_PATH }}"
+
+    - name: Download zip file
+      get_url:
+        url: "{{ ZIP_URL }}"
+        dest: "{{ FOLDER_PATH }}/file.zip"
+
+    - name: Extract zip file
+      unarchive:
+        src: "{{ FOLDER_PATH }}/file.zip"
+        dest: "{{ FOLDER_PATH }}"
