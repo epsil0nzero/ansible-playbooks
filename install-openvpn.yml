@@ -1,0 +1,38 @@
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install OpenVPN
+      apt:
+        name:
+          - openvpn
+        state: present
+
+    - name: Download server configuration file
+      get_url:
+        url: https://raw.githubusercontent.com/epsil0nzero/ansible-playbooks/main/templates/openvpn/server.conf
+        dest: /etc/openvpn/server.conf
+        
+    - name: Generate static key
+      command: openvpn --genkey --secret static.key
+      args:
+        creates: /etc/openvpn/static.key
+        
+    - name: Enable IP forwarding
+      sysctl:
+        name: net.ipv4.ip_forward
+        value: 1
+        sysctl_set: yes
+        state: present
+        reload: yes
+
+    - name: Allow OpenVPN traffic through ufw firewall
+      ufw:
+        rule: allow
+        port: 1194
+        proto: udp
+        
+    - name: Enable and start OpenVPN service
+      service:
+        name: openvpn@server
+        enabled: yes
+        state: started
