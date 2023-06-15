@@ -58,4 +58,4 @@
       service:
         name: openvpn@server
         enabled: yes
-        state: started
+        state: restarted
