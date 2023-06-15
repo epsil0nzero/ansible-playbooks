@@ -13,7 +13,7 @@
         dest: /etc/openvpn/server.conf
         
     - name: Generate static key
-      command: openvpn --genkey --secret static.key
+      command: openvpn --genkey --secret /etc/openvpn/static.key
       args:
         creates: /etc/openvpn/static.key
 
