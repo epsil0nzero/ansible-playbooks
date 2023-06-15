@@ -38,6 +38,6 @@
         
     - name: Enable and start OpenVPN service
       service:
-        name: openvpn
+        name: openvpn@server
         enabled: yes
         state: started
