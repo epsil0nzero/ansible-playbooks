@@ -52,7 +52,7 @@
       ufw:
         rule: allow
         port: 1194
-        proto: tcp
+        proto: udp
         
     - name: Enable and start OpenVPN service
       service:
