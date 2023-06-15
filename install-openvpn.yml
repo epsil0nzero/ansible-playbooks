@@ -54,7 +54,7 @@
         port: 1194
         proto: udp
         
-    - name: Enable and start OpenVPN service
+    - name: Enable and restart OpenVPN service
       service:
         name: openvpn@server
         enabled: yes
