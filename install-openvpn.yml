@@ -41,6 +41,12 @@
         sysctl_set: yes
         state: present
         reload: yes
+        
+    - name: Configure iptables NAT for internet traffic routing
+        shell: |
+          iptables -I FORWARD -i tun0 -o eth0 -s 10.8.0.0/24 -m conntrack --ctstate NEW -j ACCEPT
+          iptables -I FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+          iptables -t nat -I POSTROUTING -o eth0 -s 10.8.0.0/24 -j MASQUERADE
 
     - name: Allow OpenVPN traffic through ufw firewall
       ufw:
