@@ -16,6 +16,11 @@
       command: openvpn --genkey --secret static.key
       args:
         creates: /etc/openvpn/static.key
+
+    - name: Load nf_conntrack kernel module
+      modprobe:
+        name: nf_conntrack
+        state: present
         
     - name: Enable IP forwarding
       sysctl:
