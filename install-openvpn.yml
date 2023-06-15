@@ -16,6 +16,18 @@
       command: openvpn --genkey --secret /etc/openvpn/static.key
       args:
         creates: /etc/openvpn/static.key
+        
+    - name: Create nobody group
+      group:
+        name: nobody
+        state: present
+
+    - name: Create nobody user
+      user:
+        name: nobody
+        group: nobody
+        system: yes
+        state: present
 
     - name: Load nf_conntrack kernel module
       modprobe:
