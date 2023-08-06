@@ -18,7 +18,7 @@
 
     - name: Mount NFS shares  
       mount:
-        src: "192.168.1.150:/{{ item.src }}"
+        src: "192.168.150.5:/{{ item.src }}"
         path: "/nfs/{{ item.dst }}"
         fstype: nfs
         opts: nfsvers=4
