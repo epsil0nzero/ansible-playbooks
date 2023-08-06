@@ -5,14 +5,14 @@
       apt:
         name:
           - net-tools
-          - nginx
+#          - nginx
           - tmux   
           - unzip
         state: present
         update_cache: yes
 
-    - name: Start and enable nginx service
-      service:
-        name: nginx
-        state: started
-        enabled: yes
+#    - name: Start and enable nginx service
+#      service:
+#        name: nginx
+#        state: started
+#        enabled: yes
