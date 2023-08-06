@@ -18,24 +18,24 @@
 
     - name: Mount NFS shares  
       mount:
-        src: "192.168.1.150:/{{ item }}"
-        path: "/nfs/{{ item }}"
+        src: "192.168.1.150:/{{ item.src }}"
+        path: "/nfs/{{ item.dst }}"
         fstype: nfs
         opts: nfsvers=4
         state: mounted
       loop:
-        - data-small
-        - data-big
+        - { src: 'small', dst: 'small' }
+        - { src: 'big', dst: 'big' }
 
     - name: Add NFS mounts to fstab
       mount:
         src: "192.168.150.5:/{{ item.src }}" 
-        path: "/nfs/{{ item.path }}"
+        path: "/nfs/{{ item.dst }}"
         fstype: nfs
         state: present
         opts: defaults,nfsvers=4
         dump: 0
         passno: 0
       loop:
-        - { src: 'data-small', path: 'small' }
-        - { src: 'data-big', path: 'big' }
+       - { src: 'small', dst: 'small' }
+       - { src: 'big', dst: 'big' }
