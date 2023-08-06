@@ -16,10 +16,10 @@
       group: root
       mode: '0755'
 
-  - name: Move Docker data folder to new location
-    command: mv /var/lib/docker /data/docker
-    args:
-      removes: /var/lib/docker
+#  - name: Move Docker data folder to new location
+#    command: mv /var/lib/docker /data/docker
+#    args:
+#      removes: /var/lib/docker
 
   - name: Create /etc/docker directory
     file:
