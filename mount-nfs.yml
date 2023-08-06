@@ -32,6 +32,7 @@
         src: "192.168.150.5:/{{ item.src }}" 
         path: "/nfs/{{ item.path }}"
         fstype: nfs
+        state: present
         opts: defaults,nfsvers=4
         dump: 0
         passno: 0
