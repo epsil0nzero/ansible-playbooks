@@ -5,8 +5,7 @@
     - name: Install NFS client packages
       package:
         name: 
-          - nfs-utils
-          - nfs4-acl-tools
+          - nfs-common
         state: present
 
     - name: Create NFS mount directories
