@@ -26,11 +26,16 @@
       path: /etc/docker
       state: directory
 
+  - name: Stat daemon.json
+    stat:
+      path: /etc/docker/daemon.json
+    register: daemon_json
+
   - name: Create docker config file
     copy:
       dest: /etc/docker/daemon.json
       content: '{}'
-    when: daemon_json.stat.exists == False 
+    when: not daemon_json.stat.exists
 
   - name: Update dockerd config to use new data dir
     lineinfile:
