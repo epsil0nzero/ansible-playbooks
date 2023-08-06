@@ -1,0 +1,26 @@
+- hosts: all
+  become: yes
+
+  tasks:
+
+    - name: Format /dev/sdb with ext4 
+      filesystem:
+        fstype: ext4
+        dev: /dev/sdb
+
+    - name: Mount /dev/sdb on /data
+      mount:
+        path: /data
+        src: /dev/sdb
+        fstype: ext4
+        state: mounted
+
+    - name: Add /dev/sdb to fstab
+      mount:
+        path: /data
+        src: /dev/sdb
+        fstype: ext4
+        opts: defaults
+        dump: 0
+        passno: 2
+        state: present
