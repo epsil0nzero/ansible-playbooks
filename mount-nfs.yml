@@ -1,0 +1,41 @@
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Install NFS client packages
+      package:
+        name: 
+          - nfs-utils
+          - nfs4-acl-tools
+        state: present
+
+    - name: Create NFS mount directories
+      file:
+        path: "/nfs/{{ item }}"
+        state: directory
+      loop:
+        - small
+        - big
+
+    - name: Mount NFS shares  
+      mount:
+        src: "192.168.1.150:/{{ item }}"
+        path: "/nfs/{{ item }}"
+        fstype: nfs
+        opts: nfsvers=4
+        state: mounted
+      loop:
+        - data-small
+        - data-big
+
+    - name: Add NFS mounts to fstab
+      mount:
+        src: "192.168.150.5:/{{ item.src }}" 
+        path: "/nfs/{{ item.path }}"
+        fstype: nfs
+        opts: defaults,nfsvers=4
+        dump: 0
+        passno: 0
+      loop:
+        - { src: 'data-small', path: 'small' }
+        - { src: 'data-big', path: 'big' }
