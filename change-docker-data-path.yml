@@ -21,9 +21,20 @@
     args:
       removes: /var/lib/docker
 
+  - name: Create /etc/docker directory
+    file:
+      path: /etc/docker
+      state: directory
+
+  - name: Create docker config file
+    copy:
+      dest: /etc/docker/daemon.json
+      content: '{}'
+    when: daemon_json.stat.exists == False 
+
   - name: Update dockerd config to use new data dir
     lineinfile:
-      path: /etc/docker/daemon.json
+      path: /etc/docker/daemon.json  
       regexp: '^.*"data-root".*$'
       line: '"data-root": "/data/docker"'
       backrefs: yes
