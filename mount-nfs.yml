@@ -18,7 +18,7 @@
 
     - name: Mount NFS shares  
       mount:
-        src: "192.168.150.5:/{{ item.src }}"
+        src: "192.168.150.5:/mnt/{{ item.src }}"
         path: "/nfs/{{ item.dst }}"
         fstype: nfs
         opts: nfsvers=4
@@ -29,7 +29,7 @@
 
     - name: Add NFS mounts to fstab
       mount:
-        src: "192.168.150.5:/{{ item.src }}" 
+        src: "192.168.150.5:/mnt/{{ item.src }}" 
         path: "/nfs/{{ item.dst }}"
         fstype: nfs
         state: present
