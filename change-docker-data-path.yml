@@ -1,0 +1,34 @@
+- hosts: all
+  become: yes
+
+  tasks:
+
+  - name: Stop docker service
+    service:
+      name: docker
+      state: stopped
+
+  - name: Create new Docker data directory
+    file:
+      path: /data/docker
+      state: directory
+      owner: root
+      group: root
+      mode: '0755'
+
+  - name: Move Docker data folder to new location
+    command: mv /var/lib/docker /data/docker
+    args:
+      removes: /var/lib/docker
+
+  - name: Update dockerd config to use new data dir
+    lineinfile:
+      path: /etc/docker/daemon.json
+      regexp: '^.*"data-root".*$'
+      line: '"data-root": "/data/docker"'
+      backrefs: yes
+
+  - name: Start Docker service
+    service:
+      name: docker
+      state: started
