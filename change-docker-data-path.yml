@@ -31,11 +31,11 @@
       path: /etc/docker/daemon.json
     register: daemon_json
 
-  - name: Create docker config file
-    copy:
+  - name: Copy daemon.json template 
+    template:
+      src: https://raw.githubusercontent.com/epsil0nzero/ansible-playbooks/main/templates/docker/daemon.json
       dest: /etc/docker/daemon.json
-      content: '{}'
-    when: not daemon_json.stat.exists
+    when: not daemon_json.stat.exists  
 
   - name: Update dockerd config to use new data dir
     lineinfile:
