@@ -1,9 +1,9 @@
-hosts: all
+- hosts: all
 
   tasks:
     - name: Download bash script from GitHub
       get_url:
-        url: https://raw.githubusercontent.com/epsil0nzero/ansible-playbooks/main/scripts/run-tg-server.sh
+        url: https://raw.githubusercontent.com/epsil0nzero/ansible-playbooks/main/scripts/restart-tg-server.sh
         dest: /opt/restart-tg-server.sh
         mode: '0755'
 
