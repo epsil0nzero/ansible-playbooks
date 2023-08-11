@@ -1,0 +1,16 @@
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Stop Nginx
+      service:
+        name: nginx
+        state: stopped
+
+    - name: Renew Let's Encrypt certificates
+      command: certbot renew
+
+    - name: Start Nginx
+      service:
+        name: nginx
+        state: started
