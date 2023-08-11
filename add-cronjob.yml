@@ -1,0 +1,15 @@
+- hosts: all
+
+  tasks:
+    - name: Download bash script from GitHub
+      get_url:
+        url: https://raw.githubusercontent.com/epsil0nzero/ansible-playbooks/main/scripts/run-tg-server.bash
+        dest: /opt/run-tg-server.bash
+        mode: '0755'
+
+    - name: Add cron job to run script every 3 hours
+      cron:
+        name: Run example script
+        minute: 0 
+        hour: '*/3'
+        job: /opt/example_script.sh
