@@ -13,10 +13,5 @@
     },
     "mux": {
         "enabled": true
-    },
-    "websocket": {
-        "enabled": true,
-        "host": "DOMAIN",
-        "path": "/ws"
     }
 }
