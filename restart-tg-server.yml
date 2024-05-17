@@ -2,4 +2,4 @@
   become: yes
   tasks:        
     - name: Restart tg server
-      command: /opt/restart.tg-server.sh
+      command: cd /root/tg && /opt/restart.tg-server.sh
