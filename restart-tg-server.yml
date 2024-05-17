@@ -1,0 +1,5 @@
+- hosts: all
+  become: yes
+  tasks:        
+    - name: Restart tg server
+      command: /opt/restart.tg-server.sh
